@@ -38,7 +38,7 @@ coming soon
 * Pipe Dream: Check for replies on your posts and be able to reply to other posts
 
 ## Updates
-Add this repo's [RSS feed] to your favorite feed reader or [just about anything](https://followanything.dns7.top/). 
+Add this repo's [RSS feed](https://github.com/0n4t3/nipy/releases.atom) to your favorite feed reader or [just about anything](https://followanything.dns7.top/). 
 
 Or follow me on:
 [Nostr](https://njump.me/npub1jy90jpcdl447ae3lp4924s65khdpvnttkg7fepmvmafycusyueksrvllx9) or [Friendica (AP Compatible)](https://nerdica.net/profile/nate0)
