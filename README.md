@@ -28,7 +28,10 @@ coming soon
 Lol I'm not some Apple cultist (fine, coming soon)
 
 ## Config
-coming soon
+* (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
+* Line 28: Insert your Nostr private key
+* Line 51: Set the URL of a Mastodon API Compatible server
+* Line 52: Insert your Mastodon API Token
 
 ## To Do
 * Definitely: store Nostr key and Activity Pub API key in encrypted form and prompt for a password when posting
