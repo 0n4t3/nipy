@@ -1,4 +1,4 @@
-ni.py or "Nate's Inane Post Yeeter" is about as serious of a project as the name implies. It's a CLI Python client designed to post plain text messages simultaneously to Nostr relays of your choosing and a server that supports the Mastodon API. It's a work in progress so use it as such.
+ni.py or "Nate's Inane Post Yeeter" is about as serious of a project as the name implies. It's a CLI Python client designed to post plain text messages simultaneously to Nostr relays of your choosing, a server that supports the Mastodon API, and BlueSky. It's a work in progress so use it as such.
 
 ## Why?
 I was bored.
