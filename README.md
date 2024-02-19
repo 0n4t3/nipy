@@ -9,7 +9,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 
 
 ## Dependencies
-`pynostr` and `mastodon.py`
+`pynostr`, `mastodon.py`, and `atproto`
 
 ## Installation
 
