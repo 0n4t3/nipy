@@ -18,7 +18,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 
 **Linux (pip)**
 * Install Python & Pip (e.g. `sudo apt install python3 pip`)
-* Install Dependencies `pip install pynostr mastodon.py`
+* Install Dependencies `pip install pynostr mastodon.py atproto`
 * Run via commandline (e.g. `python3 [path to file]`) and consider configuring an alias
 
 **Windows**
@@ -32,6 +32,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Compile Coincurve using Pip `pip install coincurve --no-binary all`
 * Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
 * Run with `python [path to script]` amd consider configuring an alias
+* **Note:** The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.
 
 **MAC/IOS**
 * Lol I'm not some Apple cultist (fine, coming soon)
@@ -41,6 +42,8 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Line 28: Insert your Nostr private key
 * Line 51: Set the URL of a Mastodon API Compatible server
 * Line 52: Insert your Mastodon API Token
+* Optional: Delete Acivity Pub Portion by removing lines 14 & 50-36
+* Optional: Delete AT/Bluesky portion by removeing lines 15 & 64-74
 
 ## To Do
 * Definitely: store Nostr key and Activity Pub API key in encrypted form and prompt for a password when posting

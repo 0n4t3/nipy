@@ -12,6 +12,8 @@ from pynostr.message_type import ClientMessageType
 from pynostr.key import PrivateKey
 from pkg_resources import DistributionNotFound
 from mastodon import Mastodon
+from atproto import Client, client_utils
+
 
 #Nostr Portion
 
@@ -59,4 +61,13 @@ mastodon = Mastodon(
 tooter = mastodon.toot(event_content)
 print("AP Post Successful: ", tooter['uri'])
 
+#AT Portion
+def atproto():
+    client = Client()
+    profile = client.login('username.bsky.social', 'apikey/app-password')
+    print('AT Post (most likely) Successful')
 
+    text = client_utils.TextBuilder().text(event_content)
+    post = client.send_post(text)
+
+atproto()
