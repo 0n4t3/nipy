@@ -35,6 +35,7 @@ Lol I'm not some Apple cultist (fine, coming soon)
 
 ## To Do
 * Definitely: store Nostr key and Activity Pub API key in encrypted form and prompt for a password when posting
+* Definitely: add the option to post different messages to each network
 * Maybe: Add addition protocols (e.g. AT)
 * Maybe: Add a GUI option
 * Pipe Dream: Add a tool that downloads the posts made by those who you follow over a specific time period (e.g. 24hrs) and export it to a text document for consumption
