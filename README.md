@@ -42,6 +42,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Line 28: Insert your Nostr private key
 * Line 51: Set the URL of a Mastodon API Compatible server
 * Line 52: Insert your Mastodon API Token
+* Line 67: Insert your BlueSky Username and API Token/App Specific Password
 * Optional: Delete Acivity Pub Portion by removing lines 14 & 50-36
 * Optional: Delete AT/Bluesky portion by removeing lines 15 & 64-74
 
