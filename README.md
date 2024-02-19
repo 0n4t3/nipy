@@ -14,19 +14,27 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 ## Installation
 
 **Linux (pipx)**
-coming soon
+* coming soon
 
 **Linux (pip)**
-coming soon
+* Install Python & Pip (e.g. `sudo apt install python3 pip`)
+* Install Dependencies `pip install pynostr mastodon.py`
+* Run via commandline (e.g. `python3 [path to file]`) and consider configuring an alias
 
 **Windows**
-coming soon
+* coming soon
 
 **Android (Termux)**
-coming soon
+* Run Updates `pkg update && pkg upgrade`
+* Install Python `pkg add python`
+* Install Compiling Tools `pkg install build-essential`
+* Install Termux Specific Python Dependencies `pkg install binutils` & `pkg install python-cryptography`
+* Compile Coincurve using Pip `pip install coincurve --no-binary all`
+* Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
+* Run with `python [path to script]` amd consider configuring an alias
 
 **MAC/IOS**
-Lol I'm not some Apple cultist (fine, coming soon)
+*Lol I'm not some Apple cultist (fine, coming soon)
 
 ## Config
 * (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
