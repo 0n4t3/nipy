@@ -34,7 +34,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Run with `python [path to script]` amd consider configuring an alias
 
 **MAC/IOS**
-*Lol I'm not some Apple cultist (fine, coming soon)
+* Lol I'm not some Apple cultist (fine, coming soon)
 
 ## Config
 * (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
