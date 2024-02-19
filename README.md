@@ -3,9 +3,10 @@ ni.py or "Nate's Inane Post Yeeter" is about as serious of a project as the name
 ## Why?
 I was bored.
 
-Also maybe as a proof of concept or a slightly functional utility for me or others. What I'd love to see is a GUI client that can post to the two networks, have a following feed combining users on both protocols, and be able to reply to others (and see other's replies to me) on both protocols. I do not have the skills to build something like that, so I might as well build something I'm able to.
+However, I can see this being a handy tool for me or others. The ability to share a quick thought from the command line to one or more networks could be an easy way to send a post or ask a question, and the ability to post to multiple networks at once could be handy to those who use multiple regularly and especially useful to content creators looking to share their content. It also has has a cool retro feel and makes me think I'm a "l33t h4ck3r" because it's in the terminal.
 
-The project might also be handy. You can't use it to do anything in it beyond post, but it could be handy as a way to quickly share a thought or link from within the terminal. It also has has a cool retro feel and makes me think I'm a "l33t h4ck3r" because it's in the terminal.
+Finally, this is also useful as a proof of concept. What I'd love to see is a GUI client that can post to the two networks, have a following feed combining users on both protocols, and be able to reply to others (and see other's replies) on multiple protocols. It wouldn't hurt to show something like that is possible by making a more primitive version that's aligned with my (lack of) skills.
+
 
 ## Dependencies
 `pynostr` and `mastodon.py`
