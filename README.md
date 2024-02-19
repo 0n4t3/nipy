@@ -19,7 +19,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 **Linux (pip)**
 * Install Python & Pip (e.g. `sudo apt install python3 pip`)
 * Install Dependencies `pip install pynostr mastodon.py atproto`
-* Run via commandline (e.g. `python3 [path to file]`) and consider configuring an alias
+* Run via commandline (e.g. `python3 ~/scripts/ni.py`) and consider configuring an alias
 
 **Windows**
 * coming soon
@@ -31,7 +31,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Install Termux Specific Python Dependencies `pkg install binutils` & `pkg install python-cryptography`
 * Compile Coincurve using Pip `pip install coincurve --no-binary all`
 * Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
-* Run with `python [path to script]` amd consider configuring an alias
+* Run with python (e.g. `~/scripts/ni.py`) and consider configuring an alias
 * **Note:** The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.
 
 **MAC/IOS**
