@@ -1,5 +1,10 @@
 ni.py or "Nate's Inane Post Yeeter" is about as serious of a project as the name implies. It's a CLI Python client designed to post plain text messages simultaneously to Nostr relays of your choosing, a server that supports the Mastodon API, and BlueSky. It's a work in progress so use it as such.
 
+## What's with the name?
+* Acronym for a funny set of words
+* Short, and works with the .py extention of python
+* NIP, short for Nostr Imlplementation Protocol, is a quick node to my favorite of the three
+
 ## Why?
 I was bored.
 
@@ -9,20 +14,15 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 
 
 ## Dependencies
-`pynostr`, `mastodon.py`, and `atproto`
+`pynostr`, `mastodon.py`, and `atproto` for both versions. Additionally dependencies `keyring` and `debus-python` for the keyring version.
 
 ## Installation
-
-**Linux (pipx)**
-* coming soon
-
-**Linux (pip)**
-* Install Python & Pip (e.g. `sudo apt install python3 pip`)
-* Install Dependencies `pip install pynostr mastodon.py atproto`
+**Linux/Windows/Mac**
+* Install Python & Pip such as e.g. `sudo apt install python3 pip` on a Debian based linux distro. If you're on Windows or Mac download Python from the [official python downloads](https://www.python.org/downloads/) and install the software. After downloading and installing Python on Windows/Mac then follow [these instructions](https://pip.pypa.io/en/stable/installation/) to install Pip.
+* Install the python dependencies with pip `pip install pynostr mastodon.py atproto`
 * Run via commandline (e.g. `python3 ~/scripts/ni.py`) and consider configuring an alias
 
-**Windows**
-* coming soon
+*Note: If you're on a Linux distro and it warns you that the python environment is externally managed you may wish to use a virtual environment. Alternativly, I doubt the three dependencies listed above would actually conflict and in my case I just used the  `--break-systems-packages` flag. Don't do that with keyring though if you can avoid it in the keyring config section.
 
 **Android (Termux)**
 * Run Updates `pkg update && pkg upgrade`
@@ -34,10 +34,35 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Run with python (e.g. `python ~/scripts/ni.py`) and consider configuring an alias
 * **Note:** The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.
 
-**MAC/IOS**
-* Lol I'm not some Apple cultist (fine, coming soon)
+## Config (keyring version)
 
-## Config
+#### Part 1
+*Keyring is a Python module that hands off the handling of passwords and other data to the OS on Windows, recent versions of Mac, and on the more established Linux Desktops. Instead of hardcoding your nsec and API keys into the script you can hand that off to the OS which will provide you with a level of security that more resembles a real client as apposed to a hacky python script.*
+* Follow the installation steps above
+* Install the Python module `keyring` and it's dependency `dbus-python`. This can be done with `pip install keyring dbus-python` on Windows or Mac. On Linux it's highly reccomended to use the versions from your native package manager if availible, such as with `apt install python3-keyring python3-dbus.mainloop.pyqt6` on a Debian based distro. If you're on Linxu, but your package manager doesn't have the applicable packages, defer to the installation with Pip.
+
+#### Part 2A
+If you installed keyring on Linux via a package manager run the following commands:
+* `keyring set nipy nsec` and then enter your Nostr nsec
+* `keyring set nipy mastoapi` and then enter your Mastodon API Token
+* `keyring set nipy mastoserver` and then enter the url of the Mastodon API compatible server in the form of `https://example.com`
+* `keyring set nipy blskyname` and then enter your BlueSky username in the form of `user.bluesky.com`
+* `keyring set nipy blskyapi` and then enter your BlueSky API/App Specific Password
+*With Keyring configured you are now set to run the keyring version of the ni.py script.*
+
+#### Part 2B
+If you installed keyring via pip then do the following:
+* Open a python shell in your commandline (usually by typing `python` or `python3`)
+* type `import keyring`
+* type `keyring.set_password(service_name="nipy", username="nsec", password="-")` replacing the `-` with your Nostr nsec
+* type `keyring.set_password(service_name="nipy", username="mastoapi", password="-")` replacing the `-` with your Mastodon API Token
+* type `keyring.set_password(service_name="nipy", username="mastoserver", password="-")` replacing the `-` with the url of the Mastodon API compatible server in the form of `https://example.com`
+* type `keyring.set_password(service_name="nipy", username="blskyname", password="-")` replacing the `-` with your BlueSky username in the form of `user.bluesky.com`
+* type `keyring.set_password(service_name="nipy", username="blskyapi", password="-")` replacing the `-` with your BlueSky API/App Specific Password
+* Exit the python shell by typing `exit()` or by pressing ctrl + d
+*With Keyring configured you are now set to run the keyring version of the ni.py script.*
+
+## Config (single script version)
 * (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
 * Line 28: Insert your Nostr private key
 * Line 51: Set the URL of a Mastodon API Compatible server
@@ -47,10 +72,13 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Optional: Delete AT/Bluesky portion by removeing lines 15 & 64-74
 
 ## To Do
-* Definitely: store Nostr key and Activity Pub API key in encrypted form and prompt for a password when posting
-* Definitely: add the option to post different messages to each network
-* Maybe: Add addition protocols (e.g. AT)
-* Maybe: Add a GUI option
+* Add a configuration to prompt seperate posts for each platform
+* Allow multiple paragraphs
+* Look into why hashtages are misbehaving on Nostr
+* Look into a potential way to get links to linkify themselves on BlueSky
+* Look into Atproto dependencies on Termux
+* De-Spaghettification my code to make it easier to modify/configure
+* Maybe: Add a GUI and/or package it like you would a normal piece of software
 * Pipe Dream: Add a tool that downloads the posts made by those who you follow over a specific time period (e.g. 24hrs) and export it to a text document for consumption
 * Pipe Dream: Check for replies on your posts and be able to reply to other posts
 
@@ -63,5 +91,5 @@ Or follow me on:
 I also might setup a Nostr and Mastodon account for ni.py in the future to push out updates 'n stuff.
 
 ## Credit
-All the hard work was done for me. Credit to [PYNostr](https://github.com/holgern/pynostr) and [Mastodon.PY](https://github.com/halcy/Mastodon.py) for making this possible.
+All the hard work was done for me. Credit to [PYNostr](https://github.com/holgern/pynostr), [Mastodon.PY](https://github.com/halcy/Mastodon.py), [atproto](https://atproto.blue/en/latest/), and [Keyring](https://pypi.org/project/keyring/) for making this possible.
 
