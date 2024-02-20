@@ -32,7 +32,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Compile Coincurve using Pip `pip install coincurve --no-binary all`
 * Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
 * Run with python (e.g. `python ~/scripts/ni.py`) and consider configuring an alias
-*Note: The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.*
+* *Note: The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.*
 
 ## Config (keyring version)
 
