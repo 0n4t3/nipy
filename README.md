@@ -3,7 +3,7 @@ ni.py or "Nate's Inane Post Yeeter" is about as serious of a project as the name
 ## What's with the name?
 * Acronym for a funny set of words
 * Short, and works with the .py extention of python
-* NIP, short for Nostr Imlplementation Protocol, is a quick node to my favorite of the three
+* NIP, short for Nostr Imlplementation Protocol, is a quick nod to my favorite of the three
 
 ## Why?
 I was bored.
@@ -22,7 +22,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Install the python dependencies with pip `pip install pynostr mastodon.py atproto`
 * Run via commandline (e.g. `python3 ~/scripts/ni.py`) and consider configuring an alias
 
-*Note: If you're on a Linux distro and it warns you that the python environment is externally managed you may wish to use a virtual environment. Alternativly, I doubt the three dependencies listed above would actually conflict and in my case I just used the  `--break-systems-packages` flag. Don't do that with keyring though if you can avoid it in the keyring config section.
+*Note: If you're on a Linux distro and it warns you that the python environment is externally managed you may wish to use a virtual environment. Alternativly, I doubt the three dependencies listed above would actually conflict and in my case I just used the  `--break-systems-packages` flag. Don't do that with keyring though if you can avoid it in the keyring config section.*
 
 **Android (Termux)**
 * Run Updates `pkg update && pkg upgrade`
@@ -32,14 +32,14 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Compile Coincurve using Pip `pip install coincurve --no-binary all`
 * Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
 * Run with python (e.g. `python ~/scripts/ni.py`) and consider configuring an alias
-* **Note:** The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.
+*Note: The atproto dependency is not working on pip in Termux at the moment. You will need to delete lines 15 and 64-74 (AT/Bluesky) in order to run the script. I will update this if I find a fix.*
 
 ## Config (keyring version)
 
 #### Part 1
 *Keyring is a Python module that hands off the handling of passwords and other data to the OS on Windows, recent versions of Mac, and on the more established Linux Desktops. Instead of hardcoding your nsec and API keys into the script you can hand that off to the OS which will provide you with a level of security that more resembles a real client as apposed to a hacky python script.*
 * Follow the installation steps above
-* Install the Python module `keyring` and it's dependency `dbus-python`. This can be done with `pip install keyring dbus-python` on Windows or Mac. On Linux it's highly reccomended to use the versions from your native package manager if availible, such as with `apt install python3-keyring python3-dbus.mainloop.pyqt6` on a Debian based distro. If you're on Linxu, but your package manager doesn't have the applicable packages, defer to the installation with Pip.
+* Install the Python module `keyring` and it's dependency `dbus-python`. This can be done with `pip install keyring dbus-python` on Windows or Mac. On Linux it's highly reccomended to use the versions from your native package manager if availible, such as with `apt install python3-keyring python3-dbus.mainloop.pyqt6` on a Debian based distro. If you're on Linux, but your package manager doesn't have the applicable packages, defer to the installation with Pip.
 
 #### Part 2A
 If you installed keyring on Linux via a package manager run the following commands:
@@ -48,7 +48,7 @@ If you installed keyring on Linux via a package manager run the following comman
 * `keyring set nipy mastoserver` and then enter the url of the Mastodon API compatible server in the form of `https://example.com`
 * `keyring set nipy blskyname` and then enter your BlueSky username in the form of `user.bluesky.com`
 * `keyring set nipy blskyapi` and then enter your BlueSky API/App Specific Password
-*With Keyring configured you are now set to run the keyring version of the ni.py script.*
+* *With Keyring configured you are now set to run the keyring version of the ni.py script.*
 
 #### Part 2B
 If you installed keyring via pip then do the following:
@@ -60,7 +60,7 @@ If you installed keyring via pip then do the following:
 * type `keyring.set_password(service_name="nipy", username="blskyname", password="-")` replacing the `-` with your BlueSky username in the form of `user.bluesky.com`
 * type `keyring.set_password(service_name="nipy", username="blskyapi", password="-")` replacing the `-` with your BlueSky API/App Specific Password
 * Exit the python shell by typing `exit()` or by pressing ctrl + d
-*With Keyring configured you are now set to run the keyring version of the ni.py script.*
+* *With Keyring configured you are now set to run the keyring version of the ni.py script.*
 
 ## Config (single script version)
 * (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
