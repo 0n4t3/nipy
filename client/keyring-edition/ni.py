@@ -15,7 +15,7 @@ from pkg_resources import DistributionNotFound
 from mastodon import Mastodon
 from atproto import Client, client_utils
 
-# Keyring Credential Management
+# Pull Credentials from Keyring
 nos = (keyring.get_credential(service_name="nipy", username="nsec"))
 nsec = nos.password
 masto_api = (keyring.get_credential(service_name="nipy", username="mastoapi"))
@@ -26,61 +26,91 @@ at_name = (keyring.get_credential(service_name="nipy", username="blskyname"))
 atname = at_name.password
 at_api = (keyring.get_credential(service_name="nipy", username="blskyapi"))
 atapi = at_api.password
+# End of Keyring Stuffs
 
+# Nostr Post Module
+def nostr():
+	relay_manager = RelayManager(timeout=6) #Relay Management from PyNostr, add or remove your relays below
+	relay_manager.add_relay("wss://nos.lol")
+	relay_manager.add_relay("wss://relay.damus.io")
+	relay_manager.add_relay("wss://relay.primal.net")
+	relay_manager.add_relay("wss://offchain.pub")
+	relay_manager.add_relay("wss://nostr.oxtr.dev")
 
-#Nostr Portion
+	private_key = PrivateKey.from_nsec(nsec)
+	filters = FiltersList([Filters(authors=[private_key.public_key.hex()], limit=100)])
+	subscription_id = uuid.uuid1().hex
+	relay_manager.add_subscription_on_all_relays(subscription_id, filters)
+	event = Event(nostr_post)
+	event.sign(private_key.hex())
 
-relay_manager = RelayManager(timeout=6)
+	relay_manager.publish_event(event)
+	relay_manager.run_sync()
+	time.sleep(5)
+	while relay_manager.message_pool.has_ok_notices():
+		ok_msg = relay_manager.message_pool.get_ok_notice()
+	while relay_manager.message_pool.has_events():
+		event_msg = relay_manager.message_pool.get_event()
+	print("Nostr Post (most likely) Successful")
+# End of Nostr Stuffs
 
-#Add or remove relays
-relay_manager.add_relay("wss://nos.lol")
-relay_manager.add_relay("wss://relay.damus.io")
-relay_manager.add_relay("wss://relay.primal.net")
-relay_manager.add_relay("wss://offchain.pub")
-relay_manager.add_relay("wss://nostr.oxtr.dev")
+# ActivityPub/Mastodon API Module
+def masto():
+	server = mastourl
+	token = mastoapi
+	mastodon = Mastodon(
+		access_token = token,
+		api_base_url = server
+	)
 
-#Insert your nsec
-private_key = PrivateKey.from_nsec(nsec)
+	tooter = mastodon.toot(ap_post)
+	print("AP Post Successful: ", tooter['uri'])
+# End of AP Stuffs
 
-filters = FiltersList([Filters(authors=[private_key.public_key.hex()], limit=100)])
-subscription_id = uuid.uuid1().hex
-relay_manager.add_subscription_on_all_relays(subscription_id, filters)
-
-event_content = input("Enter Post: ")
-print("Yeet!")
-event = Event(event_content)
-event.sign(private_key.hex())
-
-relay_manager.publish_event(event)
-relay_manager.run_sync()
-time.sleep(5)
-while relay_manager.message_pool.has_ok_notices():
-    ok_msg = relay_manager.message_pool.get_ok_notice()
-while relay_manager.message_pool.has_events():
-    event_msg = relay_manager.message_pool.get_event()
-print("Nostr Post (most likely) Successful")
-
-#Fedi Portion
-
-#Set your server and access token
-server = mastourl
-token = mastoapi
-
-mastodon = Mastodon(
-    access_token = token,
-    api_base_url = server
-)
-
-tooter = mastodon.toot(event_content)
-print("AP Post Successful: ", tooter['uri'])
-
-#AT Portion
-def atproto():
+# BlueSky/AT Protocol Module
+def at_proto():
     client = Client()
     profile = client.login(atname, atapi)
     print('AT Post (most likely) Successful')
 
-    text = client_utils.TextBuilder().text(event_content)
+    text = client_utils.TextBuilder().text(at_post)
     post = client.send_post(text)
+# End of BlueSky Stuffs
 
-atproto()
+# Prompt for post.
+# Enter "dif" to be prompted to post different posts to different protocols
+# If you are entering different posts for different protocols, typing "s" will skip posting to that particular protocol.
+post = input("Enter Post: ")
+
+if post == "dif":
+	nostr_post = input("Enter Nostr Post: ")
+	ap_post = input("Enter AP Post: ")
+	at_post = input("Enter AT Post: ")
+else:
+	nostr_post = post
+	ap_post = post
+	at_post = post
+# End of post prompts
+
+#Post Messages
+print("Yeet!")
+
+#run Nostr Module
+if nostr_post == "s":
+	print("Skipping Nostr Post")
+else:
+	nostr()
+
+#run Mastodon API Module
+if ap_post == "s":
+	print("Skipping Activity Pub Post")
+else:
+	masto()
+
+#run AT Module
+if at_post == "s":
+	print("Skipping AT Post:")
+else:
+	at_proto()
+#End of message posting stuffs
+
