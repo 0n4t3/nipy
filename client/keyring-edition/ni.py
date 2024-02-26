@@ -15,21 +15,10 @@ from pkg_resources import DistributionNotFound
 from mastodon import Mastodon
 from atproto import Client, client_utils
 
-# Pull Credentials from Keyring
-nos = (keyring.get_credential(service_name="nipy", username="nsec"))
-nsec = nos.password
-masto_api = (keyring.get_credential(service_name="nipy", username="mastoapi"))
-mastoapi = masto_api.password
-masto_server = (keyring.get_credential(service_name="nipy", username="mastoserver"))
-mastourl = masto_server.password
-at_name = (keyring.get_credential(service_name="nipy", username="blskyname"))
-atname = at_name.password
-at_api = (keyring.get_credential(service_name="nipy", username="blskyapi"))
-atapi = at_api.password
-# End of Keyring Stuffs
-
 # Nostr Post Module
 def nostr():
+	nos = (keyring.get_credential(service_name="nipy", username="nsec"))
+	nsec = nos.password
 	relay_manager = RelayManager(timeout=6) #Relay Management from PyNostr, add or remove your relays below
 	relay_manager.add_relay("wss://nos.lol")
 	relay_manager.add_relay("wss://relay.damus.io")
@@ -56,6 +45,10 @@ def nostr():
 
 # ActivityPub/Mastodon API Module
 def masto():
+	masto_api = (keyring.get_credential(service_name="nipy", username="mastoapi"))
+	mastoapi = masto_api.password
+	masto_server = (keyring.get_credential(service_name="nipy", username="mastoserver"))
+	mastourl = masto_server.password
 	server = mastourl
 	token = mastoapi
 	mastodon = Mastodon(
@@ -69,48 +62,76 @@ def masto():
 
 # BlueSky/AT Protocol Module
 def at_proto():
-    client = Client()
-    profile = client.login(atname, atapi)
-    print('AT Post (most likely) Successful')
+	at_name = (keyring.get_credential(service_name="nipy", username="blskyname"))
+	atname = at_name.password
+	at_api = (keyring.get_credential(service_name="nipy", username="blskyapi"))
+	atapi = at_api.password
 
-    text = client_utils.TextBuilder().text(at_post)
-    post = client.send_post(text)
+	client = Client()
+	profile = client.login(atname, atapi)
+	print('AT Post (most likely) Successful')
+
+	text = client_utils.TextBuilder().text(at_post)
+	post = client.send_post(text)
 # End of BlueSky Stuffs
 
-# Prompt for post.
-# Enter "dif" to be prompted to post different posts to different protocols
-# If you are entering different posts for different protocols, typing "s" will skip posting to that particular protocol.
-post = input("Enter Post: ")
+def configurecreds():
+	print("Welcome to the NIPY/ni.py credential manager. This can add or update credentials stored in Keyring, when prompted please enter information. Make sure there is no extra spaces or other unintended characters as that can prevent the script from working until you re-do this process.")
+	nsecinput = input("Please enter your Nostr nsec: ")
+	keyring.set_password("nipy", "nsec", nsecinput)
+	masto_apiinput = input("Please enter your Mastodon API Key: ")
+	keyring.set_password("nipy", "mastoapi", masto_apiinput)
+	masto_serverinput = input("Please enter the URL of your Mastodon API compatible server - e.g. https://example.com: ")
+	keyring.set_password("nipy", "mastoserver", masto_serverinput)
+	at_nameinput = input("Please enter your BlueSky username - e.g. username.blsky.social: ")
+	keyring.set_password("nipy", "blskyname", at_nameinput)
+	at_apiinput = input("Please enter your BlueSky app password: ")
+	keyring.set_password("nipy", "blskyapi", at_apiinput)
+	print("Credentials have been created/updated. You are now ready to make a post with ni.py")
 
-if post == "dif":
-	nostr_post = input("Enter Nostr Post: ")
-	ap_post = input("Enter AP Post: ")
-	at_post = input("Enter AT Post: ")
-else:
+#Help tool
+def helptool():
+	print("NIPY, or ni.py, is a Python-based post-only client that works with the three largest non-centralized social media protocols: Nostr, Activity Pub, and the AT Protocol. Credential management is performed by the OS instead of the script with the Keyring Python module. Please run the credentials tool for initial configuration, or if you have recently updated your credentials. For assistance please check the GitHub repo at https://github.com/0n4t3/nipy or contact me on Nostr at nate@nate.mecca1.net or on Activity Pub at nate0@nerdica.net.")
+	print(" ")
+	print("NIPY is licensed GPLv3. NI.PY is also experimental software and comes with no warranties, explicit or implied.")
+	print(" ")
+	print("Thank you for using NI.PY")
+
+#Startup Script
+print("Welcome to NI.PY. Please enter broadcast to send a broadcast to all accounts, post to enter individual posts for each account, creds to perform initial setup or to re-configure existing credentials, and help for more info.")
+prompt = input("Enter Option: ")
+
+if prompt == "broadcast":
+	print("Enter Post to Broadcast. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	post = sys.stdin.read()
+	#Post Messages
+	print("Yeet!")
 	nostr_post = post
 	ap_post = post
 	at_post = post
-# End of post prompts
-
-#Post Messages
-print("Yeet!")
-
-#run Nostr Module
-if nostr_post == "s":
-	print("Skipping Nostr Post")
-else:
 	nostr()
-
-#run Mastodon API Module
-if ap_post == "s":
-	print("Skipping Activity Pub Post")
-else:
 	masto()
-
-#run AT Module
-if at_post == "s":
-	print("Skipping AT Post:")
-else:
 	at_proto()
-#End of message posting stuffs
 
+elif prompt == "post":
+	print("Enter Nostr Post. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	nostr_post = sys.stdin.read()
+	print("Nostr Post Saved :)")
+	print("Enter Activity Pub Post. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	ap_post = sys.stdin.read()
+	print("AP Post Saved :)")
+	print("Enter AT Protocol Post. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	at_post = sys.stdin.read()
+	print("AT Post Saved :)")
+	#Post Messages
+	print("Yeet!")
+	nostr()
+	masto()
+	at_proto()
+
+elif prompt == "creds":
+	configurecreds()
+elif prompt == "help":
+	helptool()
+else:
+	print("Input Unrecognized, please try again.")

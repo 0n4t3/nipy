@@ -16,13 +16,34 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 ## Dependencies
 `pynostr`, `mastodon.py`, and `atproto` for both versions. Additionally dependencies `keyring` and `dbus-python` for the keyring version.
 
-## Installation
-**Linux/Windows/Mac**
-* Install Python & Pip such as e.g. `sudo apt install python3 pip` on a Debian based Linux distro. If you're on Windows or Mac download Python from the [official Python downloads](https://www.python.org/downloads/) and install the software. After downloading and installing Python on Windows/Mac then follow [these instructions](https://pip.pypa.io/en/stable/installation/) to install Pip.
-* Install the Python dependencies with pip `pip install pynostr mastodon.py atproto`
+## Installation (Keyring Edition)
 
-*Note: If you're on a Linux distro and it warns you that the python environment is externally managed you may wish to use a virtual environment. Alternatively, I doubt the three dependencies listed above would actually conflict and in my case I just used the  `--break-systems-packages` flag. Don't do that with keyring though if you can avoid it in the keyring config section.*
+**Install Python & Pip**
+* Use your package manager on Linux, e.g. `apt install python3 pip`
+* Install [Python from here](https://www.python.org/downloads/) and [Pip with these instructions](https://pip.pypa.io/en/stable/installation/) on Windows/Mac
 
+**Download they keyring script**
+* Download and extract the latest release, and copy the keyring script to your preferred directory (such as a "scripts" folder in your home directory)
+
+**Install Dependencies**
+* If on Linux, run `pip install setuptools pynostr mastodon.py atproto` (normally, or in a virtual environment). Additionally, install keyring and dbus-python from your package manager such as `apt install python3-keyring python3-dbus.mainloop.pyqt6`
+* On Windows, Mac, or a Linux distro without keyring/dbus-python in it's repos, run `pip install setuptools pynostr mastodon.py atproto keyring dbus-python`
+
+**(optional) Configure the script**
+* Add/Remove/Change Nostr Relays in lines 23-27
+* Disable Nostr by commenting out lines 9-13, 19-43, 80-81, 109, 112, 117-119, and 128
+* Disable Activity Pub by commenting out lines 15, 47-60, 82-85, 110, 113, 120-122, and 129
+* Disable BlueSky/AT by commenting out lines 16, 64-75, 86-89, 111, 114, 123-125 and 130
+
+**Configure credentials**
+* Run the script in the command line (or by double clicking it on some systems). When prompted for options, enter `creds` to configure your credentials to be stored in Keyring, and enter the relevant credentails when prompted.
+* *Note: be sure to avoid entering unwanted characters, such as a space after a credential or a `/` after a URL. This would prevent the script from running and require you to re-run the credential configuration option.*
+
+**Run Script**
+* You can now run the script and choose the broadcast or post option. When prompted, type up your post, pressing enter to move to the next paragraph. When finished with the last paragraph, press enter and then `ctrl + d` (Linux/Mac) or `ctrl + z` (Win) to submit your post.
+* Consider configuring an alias to allow you to run the script more easily from a command line
+
+## Installation (Termux)
 **Android (Termux)**
 * Run Updates `pkg update && pkg upgrade`
 * Install Python `pkg add python`
@@ -30,55 +51,37 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Install Termux Specific Python Dependencies `pkg install binutils` & `pkg install python-cryptography`
 * Compile Coincurve using Pip `pip install coincurve --no-binary all`
 * Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
+* Download the latest release, and extract the simplified script.
 * Run with python (e.g. `python ~/scripts/ni.py`) and consider configuring an alias
 * *Note: The atproto dependency is not working on pip in Termux at the moment. You will need to use the simplified script and delete lines 15, 64-72, and 104-108 in order to run the script. I will update this if I find a fix.*
 
-## Config (keyring version)
+## Installation (Simplified Version) Win/Linux/Mac
 
-#### Part 1
-*Keyring is a Python module that hands off the handling of passwords and other data to the OS on Windows, recent versions of Mac, and on the more established Linux Desktops. Instead of hardcoding your nsec and API keys into the script you can hand that off to the OS which will provide you with a level of security that more resembles a real client as opposed to a hacky Python script.*
-* Follow the installation steps above
-* Install the Python module `keyring` and it's dependency `dbus-python`. This can be done with `pip install keyring dbus-python` on Windows or Mac.
-* On Linux it's highly recommended to use the versions from your native package manager if available, such as with `apt install python3-keyring python3-dbus.mainloop.pyqt6` on a Debian based distro. If you're on Linux, but your package manager doesn't have the applicable packages, defer to the installation with Pip.
+**Install Python & Pip**
+* Use your package manager on Linux, e.g. `apt install python3 pip`
+* Install [Python from here](https://www.python.org/downloads/) and [Pip with these instructions](https://pip.pypa.io/en/stable/installation/) on Windows/Mac
 
-#### Part 2A
-If you installed keyring on Linux via a package manager run the following commands:
-* `keyring set nipy nsec` and then enter your Nostr nsec
-* `keyring set nipy mastoapi` and then enter your Mastodon API Token
-* `keyring set nipy mastoserver` and then enter the URL of the Mastodon API compatible server in the form of `https://example.com`
-* `keyring set nipy blskyname` and then enter your BlueSky username in the form of `user.bluesky.com`
-* `keyring set nipy blskyapi` and then enter your BlueSky API/App Specific Password
-* You can now run the script via CLI (e.g. `python3 ~/scripts/ni.py`) and you may want to consider configuring an alias
+**Download they simplified script**
+* Download and extract the latest release, and copy the simplified script to your preferred directory (such as a "scripts" folder in your home directory)
 
-#### Part 2B
-If you installed keyring via pip then do the following:
-* Open a python shell in your commandline (usually by typing `python` or `python3`)
-* type `import keyring`
-* type `keyring.set_password(service_name="nipy", username="nsec", password="-")` replacing the `-` with your Nostr nsec
-* type `keyring.set_password(service_name="nipy", username="mastoapi", password="-")` replacing the `-` with your Mastodon API Token
-* type `keyring.set_password(service_name="nipy", username="mastoserver", password="-")` replacing the `-` with the URL of the Mastodon API compatible server in the form of `https://example.com`
-* type `keyring.set_password(service_name="nipy", username="blskyname", password="-")` replacing the `-` with your BlueSky username in the form of `user.bluesky.com`
-* type `keyring.set_password(service_name="nipy", username="blskyapi", password="-")` replacing the `-` with your BlueSky API/App Specific Password
-* Exit the python shell by typing `exit()` or by pressing ctrl + d
-* You can now run the script via CLI (e.g. `python3 ~/scripts/ni.py`) and you may want to consider configuring an alias
+**Install Dependencies**
+Run `pip install setuptools pynostr mastodon.py atproto`
 
-## Config (single script version)
+**Configure the Script**
 * (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
 * Line 18: Insert your Nostr private key
 * Line 19: Insert your Mastodon API Token
 * Line 20: Set the URL of a Mastodon API Compatible server
 * Line 21: Set your BlueSky username
 * Line 22: Set your BlueSky API Key/App Specific Password
-* Optional: Diable Nostr by commenting out lines 93-96
+* Optional: Disable Nostr by commenting out lines 93-96
 * Optional: Disable Activity Pub by commenting out lines 99-102
 * Optional: Disable BlueSky/AT by commenting out lines 105-108
+
+**Run the Script**
 * You can now run the script via CLI (e.g. `python3 ~/scripts/ni.py`) and you may want to consider configuring an alias
 
-## Posting Options
-By default, when running the script it will prompt you to enter one post and then broadcast the same post to the three protocols (assuming they havn't been disabled by editing the script). If you'd like to post different messages to each protocol (for example, using the tag #asknostr and #askfedi on the applicable protocol) instead of typing a post just type `dif` to instead be prompted to type each protocol's post individually. If you want to skip posting to a particular protocol, when prompted to write the post specific to it (after using dif) type `s` to skip writing a post for that network.
-
 ## To Do
-* Allow multiple paragraphs
 * Look into why hashtags are misbehaving on Nostr
 * Look into a potential way to get links to linkify themselves on BlueSky
 * Look into Atproto dependencies on Termux
