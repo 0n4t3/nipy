@@ -16,8 +16,13 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 ## Dependencies
 `pynostr`, `mastodon.py`, and `atproto` for both versions. Additionally dependencies `keyring` and `dbus-python` for the keyring version.
 
-## Installation (Keyring Edition)
+## Installation (Pip/Pipx - Recommended)
+* Install Python and Pip/Pipx. On Linux use your package manager, e.g. `apt install python3 pipx` then `pipx ensurepath` to make sure CLI prompts work. Get [Python from here](https://www.python.org/downloads/) and [Pip with these instructions](https://pip.pypa.io/en/stable/installation/) on Windows/Mac.
+* Install NIPY using `pip install nipyproto` or `pipx install nipyproto`
+* Run NIPY by entering `nipyproto` in your CLI. Run creds to configure creds when prompted, then you're ready to post :)
 
+
+## Installation (Keyring Edition)
 **Install Python & Pip**
 * Use your package manager on Linux, e.g. `apt install python3 pip`
 * Install [Python from here](https://www.python.org/downloads/) and [Pip with these instructions](https://pip.pypa.io/en/stable/installation/) on Windows/Mac
@@ -53,10 +58,9 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Install Python Dependencies with Pip `pip install setuptools pynostr mastodon.py`
 * Download the latest release, and extract the simplified script.
 * Run with python (e.g. `python ~/scripts/ni.py`) and consider configuring an alias
-* *Note: The atproto dependency is not working on pip in Termux at the moment. You will need to use the simplified script and delete lines 15, 64-72, and 104-108 in order to run the script. I will update this if I find a fix.*
+* *Note: The atproto dependency is not working standard Termux shell. It does, however, work in my Debian proot distro. The keyring version will not work in either, however, as Keyring requires a compatible Desktop Environment to delegate credential management to.*
 
 ## Installation (Simplified Version) Win/Linux/Mac
-
 **Install Python & Pip**
 * Use your package manager on Linux, e.g. `apt install python3 pip`
 * Install [Python from here](https://www.python.org/downloads/) and [Pip with these instructions](https://pip.pypa.io/en/stable/installation/) on Windows/Mac
@@ -82,12 +86,8 @@ Run `pip install setuptools pynostr mastodon.py atproto`
 * You can now run the script via CLI (e.g. `python3 ~/scripts/ni.py`) and you may want to consider configuring an alias
 
 ## To Do
-* Look into why hashtags are misbehaving on Nostr
+* Look into why hashtags & embedded posts are misbehaving on Nostr
 * Look into a potential way to get links to linkify themselves on BlueSky
-* Look into Atproto dependencies on Termux
-* Maybe: Add a GUI and/or package it like you would a normal piece of software
-* Pipe Dream: Add a tool that downloads the posts made by those you follow over a specific time period (e.g. 24hrs) and export it to a text document for consumption
-* Pipe Dream: Check for replies on your posts and be able to reply to other posts
 
 ## Updates
 Add this repo's [RSS feed](https://github.com/0n4t3/nipy/releases.atom) to your favorite feed reader or [just about anything](https://followanything.dns7.top/).

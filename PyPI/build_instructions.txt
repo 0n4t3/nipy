@@ -1,0 +1,9 @@
+Lol this is mostly here for when I forget it. But if you'd like to fork the project or otherwise want to make a python package for this script here's how to do so.
+
+) Navigate to the source code directory
+
+) Run python3 setup.py sdist bdist_wheel
+
+) Run twine upload dist/*
+
+) Enter your API Key
