@@ -63,48 +63,61 @@ def masto():
 
 # BlueSky/AT Protocol Module
 def at_proto():
-    client = Client()
-    profile = client.login(atname, atapi)
-    print('AT Post (most likely) Successful')
 
-    text = client_utils.TextBuilder().text(at_post)
-    post = client.send_post(text)
+	client = Client()
+	profile = client.login(atname, atapi)
+	print('AT Post (most likely) Successful')
+
+	text = client_utils.TextBuilder().text(at_post)
+	post = client.send_post(text)
 # End of BlueSky Stuffs
 
-# Prompt for post.
-# Enter "dif" to be prompted to post different posts to different protocols
-# If you are entering different posts for different protocols, typing "s" will skip posting to that particular protocol.
-post = input("Enter Post: ")
+def configurecreds():
+	print("You are currently using the simplified version of the NIPY script. Credential management is hard-coded directly into the script itself, to set yours please open the script in a text editor. If you are on a system that supports it, I highly recommend using the keyring version which delegates managing your credentials to your OS or Desktop Environment.")
 
-if post == "dif":
-	nostr_post = input("Enter Nostr Post: ")
-	ap_post = input("Enter AP Post: ")
-	at_post = input("Enter AT Post: ")
-else:
+#Help tool
+def helptool():
+	print("NIPY, or ni.py, is a Python-based post-only client that works with the three largest non-centralized social media protocols: Nostr, Activity Pub, and the AT Protocol. Credential management would generally be managed by the OS instead of the script; however you are on the simplified script which does not rely on keyring for credential managment. Please run creds for more information. For assistance please check the GitHub repo at https://github.com/0n4t3/nipy or contact me on Nostr at nate@nate.mecca1.net or on Activity Pub at nate0@nerdica.net.")
+	print(" ")
+	print("NIPY is licensed GPLv3. NI.PY is also experimental software and comes with no warranties, explicit or implied.")
+	print(" ")
+	print("Thank you for using NI.PY")
+
+#Startup Script
+print("Welcome to NI.PY. Please enter broadcast to send a broadcast to all accounts, post to enter individual posts for each account, creds to perform initial setup or to re-configure existing credentials, and help for more info.")
+prompt = input("Enter Option: ")
+
+if prompt == "broadcast":
+	print("Enter Post to Broadcast. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	post = sys.stdin.read()
+	#Post Messages
+	print("Yeet!")
 	nostr_post = post
 	ap_post = post
 	at_post = post
-# End of post prompts
-
-#Post Messages
-print("Yeet!")
-
-#run Nostr Module
-if nostr_post == "s":
-	print("Skipping Nostr Post")
-else:
 	nostr()
-
-#run Mastodon API Module
-if ap_post == "s":
-	print("Skipping Activity Pub Post")
-else:
 	masto()
-
-#run AT Module
-if at_post == "s":
-	print("Skipping AT Post:")
-else:
 	at_proto()
-#End of message posting stuffs
 
+elif prompt == "post":
+	print("Enter Nostr Post. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	nostr_post = sys.stdin.read()
+	print("Nostr Post Saved :)")
+	print("Enter Activity Pub Post. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	ap_post = sys.stdin.read()
+	print("AP Post Saved :)")
+	print("Enter AT Protocol Post. When finished press enter and then CTL + D on Linux/Mac or CTL + Z on Windows")
+	at_post = sys.stdin.read()
+	print("AT Post Saved :)")
+	#Post Messages
+	print("Yeet!")
+	nostr()
+	masto()
+	at_proto()
+
+elif prompt == "creds":
+	configurecreds()
+elif prompt == "help":
+	helptool()
+else:
+	print("Input Unrecognized, please try again.")
