@@ -72,28 +72,35 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 Run `pip install setuptools pynostr mastodon.py atproto`
 
 **Configure the Script**
-* (Optional) Lines 21-25: Add add, remove, or change to your preferred relays
+* (Optional) Lines 28-32: Add add, remove, or change to your preferred Nostr relays
 * Line 18: Insert your Nostr private key
 * Line 19: Insert your Mastodon API Token
 * Line 20: Set the URL of a Mastodon API Compatible server
 * Line 21: Set your BlueSky username
 * Line 22: Set your BlueSky API Key/App Specific Password
-* Optional: Disable Nostr by commenting out lines 93-96
-* Optional: Disable Activity Pub by commenting out lines 99-102
-* Optional: Disable BlueSky/AT by commenting out lines 105-108
+* Optional: Disable Nostr by commenting out lines 98 & 114
+* Optional: Disable Activity Pub by commenting out lines 99 & 115
+* Optional: Disable BlueSky/AT by commenting out lines 100 & 116
 
 **Run the Script**
 * You can now run the script via CLI (e.g. `python3 ~/scripts/ni.py`) and you may want to consider configuring an alias
 
 ## To Do
+Honestly, this is mostly pretty much how I expect the project to stay. Thanks to libraries that will keep themselves updated there's no real worry about it becoming incompatible or running into security issues - my code is pretty simple and is mostly just instructions to pipe info into libraries that do the heavy lifting.
+
+This was largely created as a proof of concept and a possibly useful tool in a very specific set of circumstances (like, say, trying to create a way for people to follow blog posts on all platforms). It can accomplish both, and I got to toy around with Python, so I'd call that a win.
+
+Things maybe worth looking into:
 * Look into why hashtags & embedded posts are misbehaving on Nostr
-* Look into a potential way to get links to linkify themselves on BlueSky
+* Look into a potential way to get links to linkify themselves on Bluesky
 
 ## Updates
 Add this repo's [RSS feed](https://github.com/0n4t3/nipy/releases.atom) to your favorite feed reader or [just about anything](https://followanything.dns7.top/).
 
 Or follow me on:
 [Nostr](https://njump.me/npub1jy90jpcdl447ae3lp4924s65khdpvnttkg7fepmvmafycusyueksrvllx9) or [Friendica (AP Compatible)](https://nerdica.net/profile/nate0)
+
+*Note, Nerdica.ca has been having some trouble. Not sure if it'll be back online or not, but I may not get your message if you @ me there.*
 
 Semi official NIPY announcement/test accounts [Nostr](https://njump.me/npub1lpv9fq53dta94ddm7ax9j64gedlemurgejd3sl37cg2hw28msdjsf7kjnz) - [ActivityPub](https://mstdn.party/@nipy) - and [BlueSky](https://bsky.app/profile/nipy.bsky.social)
 
