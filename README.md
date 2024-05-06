@@ -69,7 +69,7 @@ Finally, this is also useful as a proof of concept. What I'd love to see is a GU
 * Download and extract the latest release, and copy the simplified script to your preferred directory (such as a "scripts" folder in your home directory)
 
 **Install Dependencies**
-Run `pip install setuptools pynostr mastodon.py atproto`
+* Run `pip install setuptools pynostr mastodon.py atproto`
 
 **Configure the Script**
 * (Optional) Lines 28-32: Add add, remove, or change to your preferred Nostr relays
